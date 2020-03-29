@@ -20,7 +20,7 @@ data:extend({
     type = "recipe",
     name = "slowncheap-chemical-plant",
     energy_required = 5,
-    enabled = true,
+    enabled = false,
     ingredients =
     {
       {"iron-ore", 12},
@@ -385,4 +385,9 @@ data:extend({
         orientation_to_variation = true
       }
     }
+})
+
+table.insert(data.raw.technology["oil-processing"].effects,1,{
+  type = "unlock-recipe",
+  recipe = "slowncheap-chemical-plant"
 })

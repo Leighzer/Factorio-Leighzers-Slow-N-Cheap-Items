@@ -20,7 +20,7 @@ data:extend({
   {
     type = "recipe",
     name = "slowncheap-splitter",
-    enabled = true,
+    enabled = false,
     energy_required = 1,
     ingredients =
     {
@@ -36,7 +36,7 @@ data:extend({
       icon = "__leighzerslowncheapitems__/graphics/icons/slowncheap-splitter.png",
       icon_size = 64, icon_mipmaps = 4,
       flags = {"placeable-neutral", "player-creation"},
-      minable = {mining_time = 0.1, result = "splitter"},
+      minable = {mining_time = 0.1, result = "slowncheap-splitter"},
       max_health = 170,
       corpse = "1x2-remnants",--"splitter-remnants",
       dying_explosion = "splitter-explosion",
@@ -193,4 +193,9 @@ data:extend({
         }
       }
     }
+})
+
+table.insert(data.raw.technology["logistics"].effects,1,{
+  type = "unlock-recipe",
+  recipe = "slowncheap-splitter"
 })

@@ -18,7 +18,7 @@ data:extend({
   {
     type = "recipe",
     name = "slowncheap-assembling-machine",
-    enabled = true,
+    enabled = false,
     ingredients =
     {
       {"iron-ore", 5},
@@ -132,4 +132,9 @@ data:extend({
       fade_out_ticks = 30
     }
   }
+})
+
+table.insert(data.raw.technology["automation"].effects,1,{
+  type = "unlock-recipe",
+  recipe = "slowncheap-assembling-machine"
 })

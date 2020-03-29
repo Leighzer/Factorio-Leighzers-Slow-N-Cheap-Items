@@ -26,7 +26,7 @@ data:extend({
       ingredients =
       {
         {"iron-ore", 12},
-        {"copper-ore", 5}
+        {"copper-ore", 3}
         -- {"electronic-circuit", 3},
         -- {"iron-gear-wheel", 5},
         -- {"iron-plate", 10}
@@ -54,7 +54,7 @@ data:extend({
       icon = "__leighzerslowncheapitems__/graphics/icons/slowncheap-electric-mining-drill.png",
       icon_size = 64, icon_mipmaps = 4,
       flags = {"placeable-neutral", "player-creation"},
-      minable = {mining_time = 0.3, result = "electric-mining-drill"},
+      minable = {mining_time = 0.3, result = "slowncheap-electric-mining-drill"},
       max_health = 300,
       resource_categories = {"basic-solid"},
       corpse = "medium-remnants",

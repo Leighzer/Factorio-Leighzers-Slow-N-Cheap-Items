@@ -32,7 +32,7 @@ data:extend({
     icon = "__leighzerslowncheapitems__/graphics/icons/slowncheap-inserter.png",
     icon_size = 64, icon_mipmaps = 4,
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
-    minable = {mining_time = 0.1, result = "inserter"},
+    minable = {mining_time = 0.1, result = "slowncheap-inserter"},
     max_health = 150,
     corpse = "small-remnants",--"inserter-remnants",
     dying_explosion = "inserter-explosion",

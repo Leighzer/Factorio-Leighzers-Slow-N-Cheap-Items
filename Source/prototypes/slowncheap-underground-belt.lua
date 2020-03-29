@@ -21,7 +21,7 @@ data:extend({
   {
     type = "recipe",
     name = "slowncheap-underground-belt",
-    enabled = true,
+    enabled = false,
     energy_required = 1,
     ingredients =
     {
@@ -37,7 +37,7 @@ data:extend({
       icon = "__leighzerslowncheapitems__/graphics/icons/slowncheap-underground-belt.png",    
       icon_size = 64, icon_mipmaps = 4,
       flags = {"placeable-neutral", "player-creation"},
-      minable = {mining_time = 0.1, result = "underground-belt"},
+      minable = {mining_time = 0.1, result = "slowncheap-underground-belt"},
       max_health = 150,
       corpse = "small-remnants",--"underground-belt-remnants",
       dying_explosion = "underground-belt-explosion",
@@ -203,4 +203,9 @@ data:extend({
         }
       }
     }
+})
+
+table.insert(data.raw.technology["logistics"].effects,1,{
+  type = "unlock-recipe",
+  recipe = "slowncheap-underground-belt"
 })

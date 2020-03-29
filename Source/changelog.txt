@@ -1,0 +1,15 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.1.3
+  Bugfixes:
+    - Fix for minable result of some entities returning vanilla items rather than the slow n' cheap version.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.2
+  Changes:
+    - Some items are now made available when the vanilla equivalents are researched rather than being enabled out of the gate.
+    - Added migrations so if mod is added to pre-existing game, recipes are appropriately enabled/disabled based on what tech is already researched.
+    - Added thumbnail.
+    - Rebalanced slow n' cheap electric miner recipe.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.1
+  Changes:
+    - Initial release.

@@ -32,7 +32,7 @@ data:extend({
       icon = "__leighzerslowncheapitems__/graphics/icons/slowncheap-small-electric-pole.png",
       icon_size = 64, icon_mipmaps = 4,
       flags = {"placeable-neutral", "player-creation", "fast-replaceable-no-build-while-moving"},
-      minable = {mining_time = 0.1, result = "small-electric-pole"},
+      minable = {mining_time = 0.1, result = "slowncheap-small-electric-pole"},
       max_health = 100,
       corpse = "small-remnants",--"small-electric-pole-remnants",
       dying_explosion = "small-electric-pole-explosion",
