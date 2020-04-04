@@ -15,6 +15,7 @@ end
 
 --each file introduces item, recipe, and the entity
 require("prototypes.slowncheap-assembling-machine")
+require("prototypes.slowncheap-burner-mining-drill")
 require("prototypes.slowncheap-transport-belt")
 require("prototypes.slowncheap-chemical-plant")
 require("prototypes.slowncheap-stone-furnace")

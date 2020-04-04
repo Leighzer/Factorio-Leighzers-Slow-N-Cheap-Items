@@ -1,7 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.4
+  Changes:
+    - 
+---------------------------------------------------------------------------------------------------
 Version: 0.1.3
   Bugfixes:
-    - Fix for minable result of some entities returning vanilla items rather than the slow n' cheap version.
+    - Fix for minable result of some entities returning vanilla items rather than the slow n' cheap version.  
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.2
   Changes:
