@@ -902,10 +902,10 @@ data:extend({
       energy_source =
       {
         type = "electric",
-        emissions_per_minute = 10,
+        emissions_per_minute = 10 / 2,
         usage_priority = "secondary-input"
       },
-      energy_usage = "45kW",
+      energy_usage = "45kW",--"90kW"
       resource_searching_radius = 2.49,
       vector_to_place_result = {0, -1.85},
       module_specification =

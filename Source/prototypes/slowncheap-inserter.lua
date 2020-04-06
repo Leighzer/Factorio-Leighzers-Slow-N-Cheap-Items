@@ -46,8 +46,8 @@ data:extend({
     collision_box = {{-0.15, -0.15}, {0.15, 0.15}},
     selection_box = {{-0.4, -0.35}, {0.4, 0.45}},
     damaged_trigger_effect = hit_effects.entity(),
-    energy_per_movement = "2.5kJ",--"5kJ",
-    energy_per_rotation = "2.5kJ",--"5kJ",
+    energy_per_movement = "4kJ",--"5kJ",
+    energy_per_rotation = "4kJ",--"5kJ",
     energy_source =
     {
       type = "electric",

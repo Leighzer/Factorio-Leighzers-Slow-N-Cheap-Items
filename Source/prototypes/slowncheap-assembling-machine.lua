@@ -106,9 +106,10 @@ data:extend({
     {
       type = "electric",
       usage_priority = "secondary-input",
-      emissions_per_minute = 4 / 2
+      emissions_per_minute = 4 / 2,
+      drain = "1.25kW"
     },
-    energy_usage = "75kW",
+    energy_usage = "37.5kW",--"75kW",
     open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.6 },
     close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.6 },
     vehicle_impact_sound = sounds.generic_impact,
