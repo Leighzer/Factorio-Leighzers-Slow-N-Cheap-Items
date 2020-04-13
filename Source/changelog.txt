@@ -1,5 +1,9 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.1.4
+Version: 0.1.6
+  Bugfixes:
+    - Fix for 0.18.18 - sounds.car_wood_impact is now a function that takes a volume as a parameter rather than being a table.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.5
   Bugfixes:
     - Fixed slowncheap electric mining drill to give half instead of full pollution. (Woops!)
     - Fixed slowncheap assembling machine energy drain values.

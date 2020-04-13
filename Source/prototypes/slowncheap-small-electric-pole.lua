@@ -42,7 +42,7 @@ data:extend({
       drawing_box = {{-0.5, -2.6}, {0.5, 0.5}},
       maximum_wire_distance = 7.5,
       supply_area_distance = 2.5,
-      vehicle_impact_sound = sounds.car_wood_impact,
+      vehicle_impact_sound = sounds.car_wood_impact(0.5),
       track_coverage_during_build_by_moving = true,
       fast_replaceable_group = "electric-pole",
       pictures =
