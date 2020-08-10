@@ -17,6 +17,7 @@ data:extend({
       {
         type = "recipe",
         name = "slowncheap-burner-mining-drill",
+        energy_required = 2,
         ingredients = {{"iron-ore",2},{"stone", 2}},
         result = "slowncheap-burner-mining-drill"
       },

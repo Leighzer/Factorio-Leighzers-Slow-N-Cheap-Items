@@ -1,927 +1,2655 @@
+require ("__base__.prototypes.entity.demo-pipecovers")
+
 local hit_effects = require ("__base__.prototypes.entity.demo-hit-effects")
 local sounds = require("__base__.prototypes.entity.demo-sounds")
 
+if not data.is_demo then
+  require ("__base__.prototypes.entity.assemblerpipes")
+end
 
-data.raw["mining-drill"]["electric-mining-drill"].fast_replaceable_group = "mining-drill"
+electric_drill_animation_speed = 0.4
+electric_drill_animation_sequence =
+{
+  1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+  21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 1, 1
+}
 
-data:extend({  
+electric_drill_animation_shadow_sequence =
+{
+  1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+  21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 1, 1
+}
 
+function electric_mining_drill_smoke()
+  return
   {
-    type = "item",
-    name = "slowncheap-electric-mining-drill",
-    icon = "__leighzerslowncheapitems__/graphics/icons/slowncheap-electric-mining-drill.png",
-    icon_size = 64, icon_mipmaps = 4,
-    subgroup = "extraction-machine",
-    order = "a[items]-b",
-    place_result = "slowncheap-electric-mining-drill",
-    stack_size = 50
-  },
-
-  {
-    type = "recipe",
-    name = "slowncheap-electric-mining-drill",
-    normal =
+    priority = "high",
+    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-smoke.png",
+    line_length = 6,
+    width = 24,
+    height = 38,
+    frame_count = 30,
+    animation_speed = electric_drill_animation_speed,
+    direction_count = 1,
+    shift = util.by_pixel(0, 2),
+    hr_version =
     {
-      energy_required = 2,
-      ingredients =
+      priority = "high",
+      filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-smoke.png",
+      line_length = 6,
+      width = 48,
+      height = 72,
+      frame_count = 30,
+      animation_speed = electric_drill_animation_speed,
+      direction_count = 1,
+      shift = util.by_pixel(0, 3),
+      scale = 0.5,
+    }
+  }
+end
+
+function electric_mining_drill_smoke_front()
+  return
+  {
+    priority = "high",
+    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-smoke-front.png",
+    line_length = 6,
+    width = 76,
+    height = 68,
+    frame_count = 30,
+    animation_speed = electric_drill_animation_speed,
+    direction_count = 1,
+    shift = util.by_pixel(-4, 8),
+    hr_version =
+    {
+      priority = "high",
+      filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-smoke-front.png",
+      line_length = 6,
+      width = 148,
+      height = 132,
+      frame_count = 30,
+      animation_speed = electric_drill_animation_speed,
+      direction_count = 1,
+      shift = util.by_pixel(-3, 9),
+      scale = 0.5,
+    }
+  }
+end
+
+function electric_mining_drill_animation()
+  return
+  {
+    priority = "high",
+    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill.png",
+    line_length = 6,
+    width = 84,
+    height = 80,
+    frame_count = 30,
+    animation_speed = electric_drill_animation_speed,
+    frame_sequence = electric_drill_animation_sequence,
+    direction_count = 1,
+    shift = util.by_pixel(0, -12),
+    hr_version =
+    {
+      priority = "high",
+      filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill.png",
+      line_length = 6,
+      width = 162,
+      height = 156,
+      frame_count = 30,
+      animation_speed = electric_drill_animation_speed,
+      frame_sequence = electric_drill_animation_sequence,
+      direction_count = 1,
+      shift = util.by_pixel(1, -11),
+      scale = 0.5,
+    }
+  }
+end
+
+function electric_mining_drill_shadow_animation()
+  return
+  {
+    priority = "high",
+    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-shadow.png",
+    line_length = 7,
+    width = 112,
+    height = 26,
+    frame_count = 21,
+    animation_speed = electric_drill_animation_speed,
+    frame_sequence = electric_drill_animation_shadow_sequence,
+    draw_as_shadow = true,
+    shift = util.by_pixel(20, 6),
+    hr_version =
+    {
+      priority = "high",
+      filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-shadow.png",
+      line_length = 7,
+      width = 218,
+      height = 56,
+      frame_count = 21,
+      animation_speed = electric_drill_animation_speed,
+      frame_sequence = electric_drill_animation_shadow_sequence,
+      draw_as_shadow = true,
+      shift = util.by_pixel(21, 5),
+      scale = 0.5,
+    }
+  }
+end
+
+function electric_mining_drill_horizontal_animation()
+  return
+  {
+    priority = "high",
+    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-horizontal.png",
+    line_length = 6,
+    width = 40,
+    height = 80,
+    frame_count = 30,
+    animation_speed = electric_drill_animation_speed,
+    frame_sequence = electric_drill_animation_sequence,
+    direction_count = 1,
+    shift = util.by_pixel(2, -12),
+    hr_version =
+    {
+      priority = "high",
+      filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-horizontal.png",
+      line_length = 6,
+      width = 80,
+      height = 160,
+      frame_count = 30,
+      animation_speed = electric_drill_animation_speed,
+      frame_sequence = electric_drill_animation_sequence,
+      direction_count = 1,
+      shift = util.by_pixel(2, -12),
+      scale = 0.5,
+    }
+  }
+end
+
+function electric_mining_drill_horizontal_front_animation()
+  return
+  {
+    priority = "high",
+    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-horizontal-front.png",
+    line_length = 6,
+    width = 32,
+    height = 76,
+    frame_count = 30,
+    animation_speed = electric_drill_animation_speed,
+    frame_sequence = electric_drill_animation_sequence,
+    direction_count = 1,
+    shift = util.by_pixel(-2, 4),
+    hr_version =
+    {
+      priority = "high",
+      filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-horizontal-front.png",
+      line_length = 6,
+      width = 66,
+      height = 154,
+      frame_count = 30,
+      animation_speed = electric_drill_animation_speed,
+      frame_sequence = electric_drill_animation_sequence,
+      direction_count = 1,
+      shift = util.by_pixel(-3, 3),
+      scale = 0.5,
+    }
+  }
+end
+
+function electric_mining_drill_horizontal_shadow_animation()
+  return
+  {
+    priority = "high",
+    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-horizontal-shadow.png",
+    line_length = 7,
+    width = 92,
+    height = 80,
+    frame_count = 21,
+    animation_speed = electric_drill_animation_speed,
+    frame_sequence = electric_drill_animation_shadow_sequence,
+    draw_as_shadow = true,
+    shift = util.by_pixel(32, 2),
+    hr_version =
+    {
+      priority = "high",
+      filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-horizontal-shadow.png",
+      line_length = 7,
+      width = 180,
+      height = 164,
+      frame_count = 21,
+      animation_speed = electric_drill_animation_speed,
+      frame_sequence = electric_drill_animation_shadow_sequence,
+      draw_as_shadow = true,
+      shift = util.by_pixel(33, 1),
+      scale = 0.5,
+    }
+  }
+end
+
+function electric_mining_drill_status_colors()
+  return
+  {
+    -- If no_power, idle, no_minable_resources, disabled, insufficient_input or full_output is used, always_draw of corresponding layer must be set to true to draw it in those states.
+
+    no_power = { 0, 0, 0, 0 },                  -- If no_power is not specified or is nil, it defaults to clear color {0,0,0,0}
+
+    idle = { 1, 0, 0, 1 },                      -- If idle is not specified or is nil, it defaults to white.
+    no_minable_resources = { 1, 0, 0, 1 },      -- If no_minable_resources, disabled, insufficient_input or full_output are not specified or are nil, they default to idle color.
+    insufficient_input = { 1, 1, 0, 1 },
+    full_output = { 1, 1, 0, 1 },
+    disabled = { 1, 1, 0, 1 },
+
+    working = { 0, 1, 0, 1 },                   -- If working is not specified or is nil, it defaults to white.
+    low_power = { 1, 1, 0, 1 },                 -- If low_power is not specified or is nil, it defaults to working color.
+  }
+end
+
+function electric_mining_drill_status_leds_working_visualisation()
+  local led_blend_mode = nil -- "additive"
+  local led_tint = {1,1,1,0.5}
+  return
+  {
+    apply_tint = "status",
+    always_draw = true,
+    draw_as_sprite = true,
+    -- draw_as_light = true,
+    north_animation =
+    {
+      filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-light.png",
+      width = 16,
+      height = 16,
+      blend_mode = led_blend_mode,
+      tint = led_tint,
+      shift = util.by_pixel(26, -48),
+      hr_version =
       {
+        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-light.png",
+        width = 32,
+        height = 32,
+        blend_mode = led_blend_mode,
+        tint = led_tint,
+        shift = util.by_pixel(26, -48),
+        scale = 0.5,
+      }
+    },
+    east_animation =
+    {
+      filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-light.png",
+      width = 16,
+      height = 18,
+      blend_mode = led_blend_mode,
+      tint = led_tint,
+      shift = util.by_pixel(38, -32),
+      hr_version =
+      {
+        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-light.png",
+        width = 32,
+        height = 34,
+        blend_mode = led_blend_mode,
+        tint = led_tint,
+        shift = util.by_pixel(38, -32),
+        scale = 0.5,
+      }
+    },
+    south_animation =
+    {
+      filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-light.png",
+      width = 20,
+      height = 24,
+      blend_mode = led_blend_mode,
+      tint = led_tint,
+      shift = util.by_pixel(26, 26),
+      hr_version =
+      {
+        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-light.png",
+        width = 38,
+        height = 46,
+        blend_mode = led_blend_mode,
+        tint = led_tint,
+        shift = util.by_pixel(26, 26),
+        scale = 0.5,
+      }
+    },
+    west_animation =
+    {
+      filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-light.png",
+      width = 18,
+      height = 18,
+      blend_mode = led_blend_mode,
+      tint = led_tint,
+      shift = util.by_pixel(-40, -32),
+      hr_version =
+      {
+        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-light.png",
+        width = 32,
+        height = 34,
+        blend_mode = led_blend_mode,
+        tint = led_tint,
+        shift = util.by_pixel(-39, -32),
+        scale = 0.5,
+      }
+    }
+  }
+end
+
+function electric_mining_drill_add_light_offsets(t)
+  t.north_position = { 0.8, -1.5}
+  t.east_position =  { 1.2, -1}
+  t.south_position = { 0.8,  0.8}
+  t.west_position =  {-1.2, -1}
+  return t
+end
+
+local electric_mining_drill_primary_light =
+  electric_mining_drill_add_light_offsets(
+  {
+    light = { intensity = 1, size = 3, color={r=1, g=1, b=1}, minimum_darkness = 0.1 }
+  })
+
+local electric_mining_drill_secondary_light =
+  electric_mining_drill_add_light_offsets(
+  {
+    always_draw = true,
+    apply_tint = "status",
+    light = { intensity = 0.8, size = 1.5, color={r=1, g=1, b=1}, minimum_darkness = 0.1 }
+  })
+
+data:extend({
+
+    {
+        type = "item",
+        name = "slowncheap-electric-mining-drill",
+        icon = "__leighzerslowncheapitems__/graphics/icons/slowncheap-electric-mining-drill.png",
+        icon_size = 64, icon_mipmaps = 4,
+        subgroup = "extraction-machine",
+        order = "a[items]-b",
+        place_result = "slowncheap-electric-mining-drill",
+        stack_size = 50
+    },
+
+    {
+        type = "recipe",
+        name = "slowncheap-electric-mining-drill",        
+        energy_required = 2,
+        ingredients =
+        {
         {"iron-ore", 12},
         {"copper-ore", 3}
         -- {"electronic-circuit", 3},
         -- {"iron-gear-wheel", 5},
         -- {"iron-plate", 10}
+        },
+        result = "slowncheap-electric-mining-drill"        
+        -- expensive =
+        -- {
+        --   energy_required = 2,
+        --   ingredients =
+        --   {
+        --     {"iron-gear-wheel", 16},
+        --     {"iron-plate", 10}
+        --     -- {"electronic-circuit", 5},
+        --     -- {"iron-gear-wheel", 10},
+        --     -- {"iron-plate", 20}
+        --   },
+        --   result = "slowncheap-electric-mining-drill"
+        -- }
       },
-      result = "slowncheap-electric-mining-drill"
-    },
-    expensive =
-    {
-      energy_required = 2,
-      ingredients =
-      {
-        {"iron-gear-wheel", 16},
-        {"iron-plate", 10}
-        -- {"electronic-circuit", 5},
-        -- {"iron-gear-wheel", 10},
-        -- {"iron-plate", 20}
-      },
-      result = "slowncheap-electric-mining-drill"
-    }
-  },
 
-  {
-      type = "mining-drill",
-      name = "slowncheap-electric-mining-drill",
-      icon = "__leighzerslowncheapitems__/graphics/icons/slowncheap-electric-mining-drill.png",
-      icon_size = 64, icon_mipmaps = 4,
-      flags = {"placeable-neutral", "player-creation"},
-      minable = {mining_time = 0.3, result = "slowncheap-electric-mining-drill"},
-      max_health = 300,
-      resource_categories = {"basic-solid"},
-      corpse = "medium-remnants",
-      dying_explosion = "electric-mining-drill-explosion",
-      fast_replaceable_group = "mining-drill",
-      next_upgrade = "electric-mining-drill",
-      collision_box = {{ -1.4, -1.4}, {1.4, 1.4}},
-      selection_box = {{ -1.5, -1.5}, {1.5, 1.5}},
-      damaged_trigger_effect = hit_effects.entity(),
-      input_fluid_box = (not data.is_demo) and
-      {
-        production_type = "input-output",
-        pipe_picture = assembler2pipepictures(),
-        pipe_covers = pipecoverspictures(),
-        base_area = 1,
-        height = 2,
-        base_level = -1,
-        pipe_connections =
+    {
+        type = "mining-drill",
+        name = "slowncheap-electric-mining-drill",
+        icon = "__leighzerslowncheapitems__/graphics/icons/slowncheap-electric-mining-drill.png",
+        icon_size = 64, icon_mipmaps = 4,
+        flags = {"placeable-neutral", "player-creation"},
+        minable = {mining_time = 0.3, result = "slowncheap-electric-mining-drill"},
+        max_health = 300,
+        resource_categories = {"basic-solid"},
+        corpse = "medium-remnants",--"electric-mining-drill-remnants",
+        dying_explosion = "electric-mining-drill-explosion",
+        next_upgrade = "electric-mining-drill",
+        collision_box = {{ -1.4, -1.4}, {1.4, 1.4}},
+        selection_box = {{ -1.5, -1.5}, {1.5, 1.5}},
+        damaged_trigger_effect = hit_effects.entity(),
+        input_fluid_box = (not data.is_demo) and
         {
-          { position = {-2, 0} },
-          { position = {2, 0} },
-          { position = {0, 2} }
-        }
-      } or nil,
-      working_sound =
-      {
-        sound =
+            production_type = "input-output",
+            pipe_picture = assembler2pipepictures(),
+            pipe_covers = pipecoverspictures(),
+            base_area = 1,
+            height = 2,
+            base_level = -1,
+            pipe_connections =
+            {
+            { position = {-2, 0} },
+            { position = {2, 0} },
+            { position = {0, 2} }
+            }
+        } or nil,
+        working_sound =
         {
-          filename = "__base__/sound/electric-mining-drill.ogg",
-          volume = 0.75
+            sound =
+            {
+            filename = "__base__/sound/electric-mining-drill.ogg",
+            volume = 0.5
+            },
+            audible_distance_modifier = 0.6,
+            fade_in_ticks = 4,
+            fade_out_ticks = 20,
         },
-        apparent_volume = 1.5,
-        --max_sounds_per_type = 3,
-        fade_in_ticks = 4,
-        fade_out_ticks = 30,
-      },
-      vehicle_impact_sound = sounds.generic_impact,
-      animations =
-      {
-        north =
+        vehicle_impact_sound = sounds.generic_impact,
+        open_sound = sounds.machine_open,
+        close_sound = sounds.machine_close,
+
+        graphics_set =
         {
-          priority = "high",
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/slowncheap-electric-mining-drill-N.png",
-          line_length = 8,
-          width = 98,
-          height = 113,
-          frame_count = 64,
-          animation_speed = 0.5,
-          direction_count = 1,
-          shift = util.by_pixel(0, -8.5),
-          run_mode = "forward-then-backward",
-          hr_version =
-          {
+            drilling_vertical_movement_duration = 10 / electric_drill_animation_speed,
+            animation_progress = 1,
+            min_animation_progress = 0,
+            max_animation_progress = 30,
+
+            status_colors = electric_mining_drill_status_colors(),
+
+            circuit_connector_layer = "object",
+            circuit_connector_secondary_draw_order = { north = 14, east = 26, south = 26, west = 26 },
+
+            animation =
+            {
+            north =
+            {
+                layers =
+                {
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N.png",
+                    line_length = 1,
+                    width = 96,
+                    height = 100,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -8),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N.png",
+                    line_length = 1,
+                    width = 190,
+                    height = 198,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -7),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-output.png",
+                    line_length = 5,
+                    width = 32,
+                    height = 34,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-4, -44),
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-output.png",
+                    line_length = 5,
+                    width = 60,
+                    height = 66,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-3, -44),
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-shadow.png",
+                    line_length = 1,
+                    width = 106,
+                    height = 98,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(6, -6),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-shadow.png",
+                    line_length = 1,
+                    width = 212,
+                    height = 194,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(6, -6),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                }
+                }
+            },
+            east =
+            {
+                layers =
+                {
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E.png",
+                    line_length = 1,
+                    width = 94,
+                    height = 94,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -4),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E.png",
+                    line_length = 1,
+                    width = 186,
+                    height = 188,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -4),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-output.png",
+                    line_length = 5,
+                    width = 26,
+                    height = 38,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(30, -8),
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-output.png",
+                    line_length = 5,
+                    width = 50,
+                    height = 74,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(30, -8),
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-shadow.png",
+                    line_length = 1,
+                    width = 112,
+                    height = 92,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(10, 2),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-shadow.png",
+                    line_length = 1,
+                    width = 222,
+                    height = 182,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(10, 2),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                }
+                }
+            },
+            south =
+            {
+                layers =
+                {
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S.png",
+                    line_length = 1,
+                    width = 92,
+                    height = 90,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, 2),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S.png",
+                    line_length = 1,
+                    width = 184,
+                    height = 176,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, 3),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-shadow.png",
+                    line_length = 1,
+                    width = 106,
+                    height = 94,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(6, 6),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-shadow.png",
+                    line_length = 1,
+                    width = 212,
+                    height = 188,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(6, 6),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                }
+                }
+            },
+            west =
+            {
+                layers =
+                {
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W.png",
+                    line_length = 1,
+                    width = 88,
+                    height = 94,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-2, -4),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W.png",
+                    line_length = 1,
+                    width = 180,
+                    height = 188,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-3, -4),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-output.png",
+                    line_length = 5,
+                    width = 24,
+                    height = 28,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-30, -12),
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-output.png",
+                    line_length = 5,
+                    width = 50,
+                    height = 60,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-31, -13),
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-shadow.png",
+                    line_length = 1,
+                    width = 102,
+                    height = 92,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(-6, 2),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-shadow.png",
+                    line_length = 1,
+                    width = 200,
+                    height = 182,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(-5, 2),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                }
+                }
+            },
+            },
+
+            shift_animation_waypoints =
+            {
+            -- Movement should be between 0.25-0.4 distance
+            -- Bounds -0.5 - 0.6
+            north = { {0, 0}, {0, -0.3}, {0, 0.1}, {0, 0.5}, {0, 0.2}, {0, -0.1}, {0, -0.5}, {0, -0.15}, {0, 0.25}, {0, 0.6}, {0, 0.3} },
+            -- Bounds -1 - 0
+            east = { {0, 0}, {-0.4, 0}, {-0.1, 0}, {-0.5, 0}, {-0.75, 0}, {-1, 0}, {-0.65, 0}, {-0.3, 0}, {-0.9, 0}, {-0.6, 0}, {-0.3, 0} },
+            -- Bounds -1 - 0
+            south = { {0, 0}, {0, -0.4}, {0, -0.1}, {0, -0.5}, {0, -0.75}, {0, -1}, {0, -0.65}, {0, -0.3}, {0, -0.9}, {0, -0.6}, {0, -0.3} },
+            -- Bounds 0 - 1
+            west = { {0, 0}, {0.4, 0}, {0.1, 0}, {0.5, 0}, {0.75, 0}, {1, 0}, {0.65, 0}, {0.3, 0}, {0.9, 0}, {0.6, 0}, {0.3, 0} },
+            },
+
+            shift_animation_waypoint_stop_duration = 195 / electric_drill_animation_speed,
+            shift_animation_transition_duration = 30 / electric_drill_animation_speed,
+
+            working_visualisations =
+            {
+            -- dust animation 1
+            {
+                constant_speed = true,
+                synced_fadeout = true,
+                align_to_waypoint = true,
+                apply_tint = "resource-color",
+                animation = electric_mining_drill_smoke(),
+                north_position = { 0, 0.25 },
+                east_position = { 0, 0 },
+                south_position = { 0, 0.25 },
+                west_position = { 0, 0 },
+            },
+
+            -- dust animation directional 1
+            {
+                constant_speed = true,
+                fadeout = true,
+                apply_tint = "resource-color",
+                north_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-smoke.png",
+                    line_length = 5,
+                    width = 24,
+                    height = 30,
+                    frame_count = 10,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-2, -44),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-smoke.png",
+                        line_length = 5,
+                        width = 42,
+                        height = 58,
+                        frame_count = 10,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-1, -44),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                east_animation = nil,
+                south_animation = nil,
+                west_animation = nil,
+            },
+
+            -- drill back animation
+            {
+                animated_shift = true,
+                always_draw = true,
+                north_animation =
+                {
+                layers =
+                {
+                    electric_mining_drill_animation(),
+                    electric_mining_drill_shadow_animation()
+                }
+                },
+                east_animation =
+                {
+                layers =
+                {
+                    electric_mining_drill_horizontal_animation(),
+                    electric_mining_drill_horizontal_shadow_animation()
+                }
+                },
+                south_animation =
+                {
+                layers =
+                {
+                    electric_mining_drill_animation(),
+                    electric_mining_drill_shadow_animation()
+                }
+                },
+                west_animation =
+                {
+                layers =
+                {
+                    electric_mining_drill_horizontal_animation(),
+                    electric_mining_drill_horizontal_shadow_animation()
+                }
+                },
+            },
+
+            -- dust animation 2
+            {
+                constant_speed = true,
+                synced_fadeout = true,
+                align_to_waypoint = true,
+                apply_tint = "resource-color",
+                animation = electric_mining_drill_smoke_front(),
+                north_position = { 0, 0.25 },
+                east_position = { 0, 0 },
+                south_position = { 0, 0.25 },
+                west_position = { 0, 0 },
+            },
+
+            -- dust animation directional 2
+            {
+                constant_speed = true,
+                fadeout = true,
+                apply_tint = "resource-color",
+                north_animation = nil,
+                east_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-smoke.png",
+                    line_length = 5,
+                    width = 24,
+                    height = 28,
+                    frame_count = 10,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(24, -12),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-smoke.png",
+                        line_length = 5,
+                        width = 46,
+                        height = 56,
+                        frame_count = 10,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(24, -12),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                south_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-smoke.png",
+                    line_length = 5,
+                    width = 24,
+                    height = 18,
+                    frame_count = 10,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-2, 20),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-smoke.png",
+                        line_length = 5,
+                        width = 48,
+                        height = 36,
+                        frame_count = 10,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-2, 20),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                west_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-smoke.png",
+                    line_length = 5,
+                    width = 26,
+                    height = 30,
+                    frame_count = 10,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-26, -12),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-smoke.png",
+                        line_length = 5,
+                        width = 46,
+                        height = 54,
+                        frame_count = 10,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-25, -11),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                }
+            },
+
+            -- drill front animation
+            {
+                animated_shift = true,
+                always_draw = true,
+                --north_animation = util.empty_sprite(),
+                east_animation = electric_mining_drill_horizontal_front_animation(),
+                --south_animation = util.empty_sprite(),
+                west_animation = electric_mining_drill_horizontal_front_animation(),
+            },
+
+            -- front frame
+            {
+                always_draw = true,
+                north_animation = nil,
+                east_animation =
+                {
+                priority = "high",
+                filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-front.png",
+                line_length = 1,
+                width = 66,
+                height = 74,
+                frame_count = 1,
+                animation_speed = electric_drill_animation_speed,
+                direction_count = 1,
+                shift = util.by_pixel(22, 10),
+                hr_version =
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-front.png",
+                    line_length = 1,
+                    width = 136,
+                    height = 148,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(21, 10),
+                    scale = 0.5,
+                }
+                },
+                south_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-output.png",
+                    line_length = 5,
+                    width = 44,
+                    height = 28,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    shift = util.by_pixel(-2, 34),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-output.png",
+                        line_length = 5,
+                        width = 84,
+                        height = 56,
+                        frame_count = 5,
+                        animation_speed = electric_drill_animation_speed,
+                        shift = util.by_pixel(-1, 34),
+                        scale = 0.5,
+                    }
+                    },
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-front.png",
+                    line_length = 1,
+                    width = 96,
+                    height = 54,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    repeat_count = 5,
+                    shift = util.by_pixel(0, 26),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-front.png",
+                        line_length = 1,
+                        width = 190,
+                        height = 104,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        repeat_count = 5,
+                        shift = util.by_pixel(0, 27),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+                west_animation =
+                {
+                priority = "high",
+                filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-front.png",
+                line_length = 1,
+                width = 68,
+                height = 70,
+                frame_count = 1,
+                animation_speed = electric_drill_animation_speed,
+                direction_count = 1,
+                shift = util.by_pixel(-22, 12),
+                hr_version =
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-front.png",
+                    line_length = 1,
+                    width = 134,
+                    height = 140,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-22, 12),
+                    scale = 0.5,
+                }
+                }
+            },
+
+            -- LEDs
+            electric_mining_drill_status_leds_working_visualisation(),
+
+            -- light
+            electric_mining_drill_primary_light,
+            electric_mining_drill_secondary_light
+            }
+        },
+
+        wet_mining_graphics_set =
+        {
+            drilling_vertical_movement_duration = 10 / electric_drill_animation_speed,
+            animation_progress = 1,
+            min_animation_progress = 0,
+            max_animation_progress = 30,
+
+            status_colors = electric_mining_drill_status_colors(),
+
+            circuit_connector_layer = "object",
+            circuit_connector_secondary_draw_order = { north = 14, east = 44, south = 44, west = 44 },
+
+            animation =
+            {
+            north =
+            {
+                layers =
+                {
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-wet.png",
+                    line_length = 1,
+                    width = 96,
+                    height = 100,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -8),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-wet.png",
+                    line_length = 1,
+                    width = 190,
+                    height = 198,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -7),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-output.png",
+                    line_length = 5,
+                    width = 32,
+                    height = 34,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-4, -44),
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-output.png",
+                    line_length = 5,
+                    width = 60,
+                    height = 66,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-3, -44),
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-wet-shadow.png",
+                    line_length = 1,
+                    width = 124,
+                    height = 110,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(12, 2),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-wet-shadow.png",
+                    line_length = 1,
+                    width = 248,
+                    height = 222,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(12, 1),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                }
+                }
+            },
+            west =
+            {
+                layers =
+                {
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-wet.png",
+                    line_length = 1,
+                    width = 96,
+                    height = 106,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(2, -10),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-wet.png",
+                    line_length = 1,
+                    width = 194,
+                    height = 208,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(1, -9),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-output.png",
+                    line_length = 5,
+                    width = 24,
+                    height = 28,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-30, -12),
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-output.png",
+                    line_length = 5,
+                    width = 50,
+                    height = 60,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-31, -13),
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-wet-shadow.png",
+                    line_length = 1,
+                    width = 132,
+                    height = 102,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(8, 6),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-wet-shadow.png",
+                    line_length = 1,
+                    width = 260,
+                    height = 202,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(9, 6),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                }
+                }
+            },
+            south =
+            {
+                layers =
+                {
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-wet.png",
+                    line_length = 1,
+                    width = 98,
+                    height = 106,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -6),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-wet.png",
+                    line_length = 1,
+                    width = 192,
+                    height = 208,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(1, -5),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-wet-shadow.png",
+                    line_length = 1,
+                    width = 124,
+                    height = 98,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(12, 4),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-wet-shadow.png",
+                    line_length = 1,
+                    width = 248,
+                    height = 192,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(12, 5),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                }
+                }
+            },
+            east =
+            {
+                layers =
+                {
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-wet.png",
+                    line_length = 1,
+                    width = 98,
+                    height = 106,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-2, -10),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-wet.png",
+                    line_length = 1,
+                    width = 194,
+                    height = 208,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-2, -9),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-output.png",
+                    line_length = 5,
+                    width = 26,
+                    height = 38,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(30, -8),
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-output.png",
+                    line_length = 5,
+                    width = 50,
+                    height = 74,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(30, -8),
+                    scale = 0.5,
+                    }
+                },
+                {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-wet-shadow.png",
+                    line_length = 1,
+                    width = 112,
+                    height = 100,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(10, 6),
+                    repeat_count = 5,
+                    hr_version =
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-wet-shadow.png",
+                    line_length = 1,
+                    width = 226,
+                    height = 202,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    draw_as_shadow = true,
+                    shift = util.by_pixel(9, 5),
+                    repeat_count = 5,
+                    scale = 0.5,
+                    }
+                }
+                }
+            },
+            },
+
+            shift_animation_waypoints =
+            {
+            -- Movement should be between 0.25-0.4 distance
+            -- Bounds -0.5 - 0.2
+            north = { {0, 0}, {0, -0.4}, {0, -0.1}, {0, 0.2} },
+            -- Bounds -0.3 - 0
+            east = { {0, 0}, {-0.3, 0}, {0, 0}, {-0.25, 0} },
+            -- Bounds -0.7 - 0
+            south = { {0, 0}, {0, -0.4}, {0, -0.7}, {0, -0.3} },
+            -- Bounds 0 - 0.3
+            west = { {0, 0}, {0.3, 0}, {0, 0}, {0.25, 0} },
+            },
+
+            shift_animation_waypoint_stop_duration = 195 / electric_drill_animation_speed,
+            shift_animation_transition_duration = 30 / electric_drill_animation_speed,
+
+            working_visualisations =
+            {
+            -- dust animation 1
+            {
+                constant_speed = true,
+                synced_fadeout = true,
+                align_to_waypoint = true,
+                apply_tint = "resource-color",
+                animation = electric_mining_drill_smoke(),
+                north_position = { 0, 0.25 },
+                east_position = { 0, 0 },
+                south_position = { 0, 0.25 },
+                west_position = { 0, 0 },
+            },
+
+            -- dust animation directional 1
+            {
+                constant_speed = true,
+                fadeout = true,
+                apply_tint = "resource-color",
+                north_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-smoke.png",
+                    line_length = 5,
+                    width = 24,
+                    height = 30,
+                    frame_count = 10,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-2, -44),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-smoke.png",
+                        line_length = 5,
+                        width = 42,
+                        height = 58,
+                        frame_count = 10,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-1, -44),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                east_animation = nil,
+                south_animation = nil,
+                west_animation = nil
+            },
+
+            -- drill back animation
+            {
+                animated_shift = true,
+                always_draw = true,
+                north_animation =
+                {
+                layers =
+                {
+                    electric_mining_drill_animation(),
+                    electric_mining_drill_shadow_animation()
+                }
+                },
+                east_animation =
+                {
+                layers =
+                {
+                    electric_mining_drill_horizontal_animation(),
+                    electric_mining_drill_horizontal_shadow_animation()
+                }
+                },
+                south_animation =
+                {
+                layers =
+                {
+                    electric_mining_drill_animation(),
+                    electric_mining_drill_shadow_animation()
+                }
+                },
+                west_animation =
+                {
+                layers =
+                {
+                    electric_mining_drill_horizontal_animation(),
+                    electric_mining_drill_horizontal_shadow_animation()
+                }
+                },
+            },
+
+            -- dust animation 2
+            {
+                constant_speed = true,
+                synced_fadeout = true,
+                align_to_waypoint = true,
+                apply_tint = "resource-color",
+                animation = electric_mining_drill_smoke_front(),
+            },
+
+            -- dust animation directional 2
+            {
+                constant_speed = true,
+                fadeout = true,
+                apply_tint = "resource-color",
+                north_animation = nil,
+                east_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-smoke.png",
+                    line_length = 5,
+                    width = 24,
+                    height = 28,
+                    frame_count = 10,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(24, -12),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-smoke.png",
+                        line_length = 5,
+                        width = 46,
+                        height = 56,
+                        frame_count = 10,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(24, -12),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                south_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-smoke.png",
+                    line_length = 5,
+                    width = 24,
+                    height = 18,
+                    frame_count = 10,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-2, 20),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-smoke.png",
+                        line_length = 5,
+                        width = 48,
+                        height = 36,
+                        frame_count = 10,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-2, 20),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                west_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-smoke.png",
+                    line_length = 5,
+                    width = 26,
+                    height = 30,
+                    frame_count = 10,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-26, -12),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-smoke.png",
+                        line_length = 5,
+                        width = 46,
+                        height = 54,
+                        frame_count = 10,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-25, -11),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                }
+            },
+
+            -- fluid window background (bottom)
+            {
+                -- render_layer = "lower-object-above-shadow",
+                secondary_draw_order = -49,
+                always_draw = true,
+                north_animation = nil,
+                east_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-wet-window-background.png",
+                    line_length = 1,
+                    width = 12,
+                    height = 8,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -52),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-wet-window-background.png",
+                        line_length = 1,
+                        width = 22,
+                        height = 14,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, -52),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+                south_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-wet-window-background.png",
+                    line_length = 1,
+                    width = 16,
+                    height = 12,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-2, -44),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-wet-window-background.png",
+                        line_length = 1,
+                        width = 30,
+                        height = 20,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-2, -43),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+                west_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-wet-window-background.png",
+                    line_length = 1,
+                    width = 12,
+                    height = 8,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -52),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-wet-window-background.png",
+                        line_length = 1,
+                        width = 22,
+                        height = 14,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, -52),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+            },
+
+            -- fluid base (bottom)
+            {
+                always_draw = true,
+                -- render_layer = "lower-object-above-shadow",
+                secondary_draw_order = -48,
+                apply_tint = "input-fluid-base-color",
+                north_animation = nil,
+                east_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-wet-fluid-background.png",
+                    line_length = 1,
+                    width = 12,
+                    height = 8,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -52),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-wet-fluid-background.png",
+                        line_length = 1,
+                        width = 22,
+                        height = 14,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, -52),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+                south_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-wet-fluid-background.png",
+                    line_length = 1,
+                    width = 14,
+                    height = 8,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-2, -42),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-wet-fluid-background.png",
+                        line_length = 1,
+                        width = 28,
+                        height = 18,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-2, -43),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+                west_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-wet-fluid-background.png",
+                    line_length = 1,
+                    width = 12,
+                    height = 8,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -52),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-wet-fluid-background.png",
+                        line_length = 1,
+                        width = 22,
+                        height = 14,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, -52),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+            },
+
+            -- fluid flow (bottom)
+            {
+                --render_layer = "lower-object-above-shadow",
+                secondary_draw_order = -47,
+                always_draw = true,
+                apply_tint = "input-fluid-flow-color",
+                north_animation = nil,
+                east_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-wet-fluid-flow.png",
+                    line_length = 1,
+                    width = 12,
+                    height = 8,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -52),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-wet-fluid-flow.png",
+                        line_length = 1,
+                        width = 24,
+                        height = 14,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, -52),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+                south_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-wet-fluid-flow.png",
+                    line_length = 1,
+                    width = 14,
+                    height = 8,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-2, -42),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-wet-fluid-flow.png",
+                        line_length = 1,
+                        width = 26,
+                        height = 16,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-2, -42),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+                west_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-wet-fluid-flow.png",
+                    line_length = 1,
+                    width = 12,
+                    height = 8,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -52),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-wet-fluid-flow.png",
+                        line_length = 1,
+                        width = 24,
+                        height = 14,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, -52),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+            },
+
+            -- drill front animation
+            {
+                animated_shift = true,
+                always_draw = true,
+                --north_animation = util.empty_sprite(),
+                east_animation = electric_mining_drill_horizontal_front_animation(),
+                --south_animation = util.empty_sprite(),
+                west_animation = electric_mining_drill_horizontal_front_animation(),
+            },
+
+            -- fluid window background (front)
+            {
+                always_draw = true,
+                north_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-wet-window-background.png",
+                    line_length = 1,
+                    width = 86,
+                    height = 44,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, 10),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-wet-window-background.png",
+                        line_length = 1,
+                        width = 172,
+                        height = 90,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, 9),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+                west_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-wet-window-background-front.png",
+                    line_length = 1,
+                    width = 40,
+                    height = 54,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(14, 10),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-wet-window-background-front.png",
+                        line_length = 1,
+                        width = 80,
+                        height = 106,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(14, 10),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                south_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-wet-window-background-front.png",
+                    line_length = 1,
+                    width = 86,
+                    height = 14,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -8),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-wet-window-background-front.png",
+                        line_length = 1,
+                        width = 172,
+                        height = 22,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, -7),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                east_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-wet-window-background-front.png",
+                    line_length = 1,
+                    width = 40,
+                    height = 54,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-14, 10),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-wet-window-background-front.png",
+                        line_length = 1,
+                        width = 82,
+                        height = 110,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-15, 9),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+            },
+
+            -- fluid base (front)
+            {
+                always_draw = true,
+                apply_tint = "input-fluid-base-color",
+                north_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-wet-fluid-background.png",
+                    line_length = 1,
+                    width = 90,
+                    height = 46,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, 10),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-wet-fluid-background.png",
+                        line_length = 1,
+                        width = 178,
+                        height = 94,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, 9),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+                west_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-wet-fluid-background-front.png",
+                    line_length = 1,
+                    width = 40,
+                    height = 54,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(14, 10),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-wet-fluid-background-front.png",
+                        line_length = 1,
+                        width = 80,
+                        height = 102,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(14, 11),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                south_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-wet-fluid-background-front.png",
+                    line_length = 1,
+                    width = 90,
+                    height = 16,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -8),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-wet-fluid-background-front.png",
+                        line_length = 1,
+                        width = 178,
+                        height = 28,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, -7),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                east_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-wet-fluid-background-front.png",
+                    line_length = 1,
+                    width = 40,
+                    height = 54,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-14, 10),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-wet-fluid-background-front.png",
+                        line_length = 1,
+                        width = 82,
+                        height = 106,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-15, 10),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+            },
+
+            -- fluid flow (front)
+            {
+                always_draw = true,
+                apply_tint = "input-fluid-flow-color",
+                north_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-wet-fluid-flow.png",
+                    line_length = 1,
+                    width = 86,
+                    height = 44,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, 10),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-wet-fluid-flow.png",
+                        line_length = 1,
+                        width = 172,
+                        height = 88,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, 10),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+                west_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-wet-fluid-flow-front.png",
+                    line_length = 1,
+                    width = 40,
+                    height = 50,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(14, 12),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-wet-fluid-flow-front.png",
+                        line_length = 1,
+                        width = 78,
+                        height = 102,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(14, 11),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                south_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-wet-fluid-flow-front.png",
+                    line_length = 1,
+                    width = 86,
+                    height = 12,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, -8),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-wet-fluid-flow-front.png",
+                        line_length = 1,
+                        width = 172,
+                        height = 22,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, -8),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                east_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-wet-fluid-flow-front.png",
+                    line_length = 1,
+                    width = 40,
+                    height = 54,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-14, 10),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-wet-fluid-flow-front.png",
+                        line_length = 1,
+                        width = 78,
+                        height = 106,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-14, 10),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+            },
+
+            -- front frame (wet)
+            {
+                always_draw = true,
+                north_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-wet-front.png",
+                    line_length = 1,
+                    width = 100,
+                    height = 66,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(0, 16),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-wet-front.png",
+                        line_length = 1,
+                        width = 200,
+                        height = 130,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(0, 16),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+                west_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-wet-front.png",
+                    line_length = 1,
+                    width = 104,
+                    height = 72,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(-4, 12),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-wet-front.png",
+                        line_length = 1,
+                        width = 208,
+                        height = 144,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(-4, 12),
+                        scale = 0.5,
+                    }
+                    }
+                }
+                },
+                south_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-output.png",
+                    line_length = 5,
+                    width = 44,
+                    height = 28,
+                    frame_count = 5,
+                    animation_speed = electric_drill_animation_speed,
+                    shift = util.by_pixel(-2, 34),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-output.png",
+                        line_length = 5,
+                        width = 84,
+                        height = 56,
+                        frame_count = 5,
+                        animation_speed = electric_drill_animation_speed,
+                        shift = util.by_pixel(-1, 34),
+                        scale = 0.5,
+                    }
+                    },
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-wet-front.png",
+                    line_length = 1,
+                    width = 96,
+                    height = 70,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    repeat_count = 5,
+                    shift = util.by_pixel(0, 18),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-wet-front.png",
+                        line_length = 1,
+                        width = 192,
+                        height = 140,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        repeat_count = 5,
+                        shift = util.by_pixel(0, 18),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+                east_animation =
+                {
+                layers =
+                {
+                    {
+                    priority = "high",
+                    filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-wet-front.png",
+                    line_length = 1,
+                    width = 106,
+                    height = 76,
+                    frame_count = 1,
+                    animation_speed = electric_drill_animation_speed,
+                    direction_count = 1,
+                    shift = util.by_pixel(2, 10),
+                    hr_version =
+                    {
+                        priority = "high",
+                        filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-wet-front.png",
+                        line_length = 1,
+                        width = 208,
+                        height = 148,
+                        frame_count = 1,
+                        animation_speed = electric_drill_animation_speed,
+                        direction_count = 1,
+                        shift = util.by_pixel(3, 11),
+                        scale = 0.5,
+                    }
+                    },
+                }
+                },
+            },
+
+            -- LEDs
+            electric_mining_drill_status_leds_working_visualisation(),
+
+            -- light
+            electric_mining_drill_primary_light,
+            electric_mining_drill_secondary_light
+            }
+        },
+
+        integration_patch =
+        {
+            north =
+            {
             priority = "high",
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-slowncheap-electric-mining-drill-N.png",
-            line_length = 8,
-            width = 196,
-            height = 226,
-            frame_count = 64,
-            animation_speed = 0.5,
-            direction_count = 1,
-            shift = util.by_pixel(0, -8),
-            run_mode = "forward-then-backward",
-            scale = 0.5
-          }
-        },
-        east =
-        {
-          priority = "high",
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/slowncheap-electric-mining-drill-E.png",
-          line_length = 8,
-          width = 105,
-          height = 98,
-          frame_count = 64,
-          animation_speed = 0.5,
-          direction_count = 1,
-          shift = util.by_pixel(3.5, -1),
-          run_mode = "forward-then-backward",
-          hr_version =
-          {
-            priority = "high",
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-slowncheap-electric-mining-drill-E.png",
-            line_length = 8,
-            width = 211,
-            height = 197,
-            frame_count = 64,
-            animation_speed = 0.5,
-            direction_count = 1,
-            shift = util.by_pixel(3.75, -1.25),
-            run_mode = "forward-then-backward",
-            scale = 0.5
-          }
-        },
-        south =
-        {
-          priority = "high",
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/slowncheap-electric-mining-drill-S.png",
-          line_length = 8,
-          width = 98,
-          height = 109,
-          frame_count = 64,
-          animation_speed = 0.5,
-          direction_count = 1,
-          shift = util.by_pixel(0, -1.5),
-          run_mode = "forward-then-backward",
-          hr_version =
-          {
-            priority = "high",
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-slowncheap-electric-mining-drill-S.png",
-            line_length = 8,
-            width = 196,
-            height = 219,
-            frame_count = 64,
-            animation_speed = 0.5,
-            direction_count = 1,
-            shift = util.by_pixel(0, -1.25),
-            run_mode = "forward-then-backward",
-            scale = 0.5
-          }
-        },
-        west =
-        {
-          priority = "high",
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/slowncheap-electric-mining-drill-W.png",
-          line_length = 8,
-          width = 105,
-          height = 98,
-          frame_count = 64,
-          animation_speed = 0.5,
-          direction_count = 1,
-          shift = util.by_pixel(-3.5, -1),
-          run_mode = "forward-then-backward",
-          hr_version =
-          {
-            priority = "high",
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-slowncheap-electric-mining-drill-W.png",
-            line_length = 8,
-            width = 211,
-            height = 197,
-            frame_count = 64,
-            animation_speed = 0.5,
-            direction_count = 1,
-            shift = util.by_pixel(-3.75, -0.75),
-            run_mode = "forward-then-backward",
-            scale = 0.5
-          }
-        }
-      },
-      shadow_animations =
-      {
-        north =
-        {
-          priority = "high",
-          filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-N-drill-shadow.png",
-          flags = { "shadow" },
-          line_length = 8,
-          width = 101,
-          height = 111,
-          frame_count = 64,
-          animation_speed = 0.5,
-          direction_count = 1,
-          shift = util.by_pixel(1.5, -7.5),
-          draw_as_shadow = true,
-          run_mode = "forward-then-backward",
-          hr_version =
-          {
-            priority = "high",
-            filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-N-drill-shadow.png",
-            flags = { "shadow" },
-            line_length = 8,
-            width = 201,
-            height = 223,
-            frame_count = 64,
-            animation_speed = 0.5,
-            direction_count = 1,
-            shift = util.by_pixel(1.25, -7.25),
-            draw_as_shadow = true,
-            run_mode = "forward-then-backward",
-            scale = 0.5
-          }
-        },
-        east =
-        {
-          priority = "high",
-          filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-E-drill-shadow.png",
-          flags = { "shadow" },
-          line_length = 8,
-          width = 110,
-          height = 97,
-          frame_count = 64,
-          animation_speed = 0.5,
-          direction_count = 1,
-          shift = util.by_pixel(6, -0.5),
-          draw_as_shadow = true,
-          run_mode = "forward-then-backward",
-          hr_version =
-          {
-            priority = "high",
-            filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-E-drill-shadow.png",
-            flags = { "shadow" },
-            line_length = 8,
-            width = 221,
-            height = 195,
-            frame_count = 64,
-            animation_speed = 0.5,
-            direction_count = 1,
-            shift = util.by_pixel(6.25, -0.25),
-            draw_as_shadow = true,
-            run_mode = "forward-then-backward",
-            scale = 0.5
-          }
-        },
-        south =
-        {
-          priority = "high",
-          filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-S-drill-shadow.png",
-          flags = { "shadow" },
-          line_length = 8,
-          width = 100,
-          height = 103,
-          frame_count = 64,
-          animation_speed = 0.5,
-          direction_count = 1,
-          shift = util.by_pixel(1, 2.5),
-          draw_as_shadow = true,
-          run_mode = "forward-then-backward",
-          hr_version =
-          {
-            priority = "high",
-            filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-S-drill-shadow.png",
-            flags = { "shadow" },
-            line_length = 8,
-            width = 200,
-            height = 206,
-            frame_count = 64,
-            animation_speed = 0.5,
-            direction_count = 1,
-            shift = util.by_pixel(1, 2.5),
-            draw_as_shadow = true,
-            run_mode = "forward-then-backward",
-            scale = 0.5
-          }
-        },
-        west =
-        {
-          priority = "high",
-          filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-W-drill-shadow.png",
-          flags = { "shadow" },
-          line_length = 8,
-          width = 114,
-          height = 97,
-          frame_count = 64,
-          animation_speed = 0.5,
-          direction_count = 1,
-          shift = util.by_pixel(1, -0.5),
-          draw_as_shadow = true,
-          run_mode = "forward-then-backward",
-          hr_version =
-          {
-            priority = "high",
-            filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-W-drill-shadow.png",
-            flags = { "shadow" },
-            line_length = 8,
-            width = 229,
-            height = 195,
-            frame_count = 64,
-            animation_speed = 0.5,
-            direction_count = 1,
-            shift = util.by_pixel(1.25, -0.25),
-            draw_as_shadow = true,
-            run_mode = "forward-then-backward",
-            scale = 0.5
-          }
-        }
-      },
-      input_fluid_patch_sprites =
-      {
-        north =
-        {
-          priority = "extra-high",
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/slowncheap-electric-mining-drill-N-patch.png",
-          width = 100,
-          height = 111,
-          frame_count = 1,
-          direction_count = 1,
-          shift = util.by_pixel(0, -6.5),
-          hr_version =
-          {
-            priority = "extra-high",
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-slowncheap-electric-mining-drill-N-patch.png",
-            width = 200,
-            height = 222,
+            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-N-integration.png",
+            line_length = 1,
+            width = 110,
+            height = 100,
             frame_count = 1,
+            animation_speed = electric_drill_animation_speed,
             direction_count = 1,
-            shift = util.by_pixel(-0.5, -6.5),
-            scale = 0.5
-          }
-        },
-        east =
-        {
-          priority = "extra-high",
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/slowncheap-electric-mining-drill-E-patch.png",
-          width = 100,
-          height = 110,
-          frame_count = 1,
-          direction_count = 1,
-          shift = util.by_pixel(0, -6),
-          hr_version =
-          {
-            priority = "extra-high",
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-slowncheap-electric-mining-drill-E-patch.png",
-            width = 200,
-            height = 219,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(0, -5.75),
-            scale = 0.5
-          }
-        },
-        south =
-        {
-          priority = "extra-high",
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/slowncheap-electric-mining-drill-S-patch.png",
-          width = 100,
-          height = 113,
-          frame_count = 1,
-          direction_count = 1,
-          shift = util.by_pixel(0, -7.5),
-          hr_version =
-          {
-            priority = "extra-high",
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-slowncheap-electric-mining-drill-S-patch.png",
-            width = 200,
-            height = 226,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(-0.5, -7.5),
-            scale = 0.5
-          }
-        },
-        west =
-        {
-          priority = "extra-high",
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/slowncheap-electric-mining-drill-W-patch.png",
-          width = 100,
-          height = 108,
-          frame_count = 1,
-          direction_count = 1,
-          shift = util.by_pixel(0, -5),
-          hr_version =
-          {
-            priority = "extra-high",
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-slowncheap-electric-mining-drill-W-patch.png",
-            width = 200,
-            height = 220,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(-0.5, -6),
-            scale = 0.5
-          }
-        }
-      },
-      input_fluid_patch_shadow_sprites =
-      {
-        north =
-        {
-          priority = "extra-high",
-          filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-N-patch-shadow.png",
-          flags = { "shadow" },
-          width = 110,
-          height = 98,
-          frame_count = 1,
-          direction_count = 1,
-          shift = util.by_pixel(5, 0),
-          hr_version =
-          {
-            priority = "extra-high",
-            filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-N-patch-shadow.png",
-            flags = { "shadow" },
-            width = 220,
-            height = 197,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(5, -0.25),
-            scale = 0.5
-          }
-        },
-        east =
-        {
-          priority = "extra-high",
-          filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-E-patch-shadow.png",
-          flags = { "shadow" },
-          width = 112,
-          height = 98,
-          frame_count = 1,
-          direction_count = 1,
-          shift = util.by_pixel(6, 0),
-          hr_version =
-          {
-            priority = "extra-high",
-            filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-E-patch-shadow.png",
-            flags = { "shadow" },
-            width = 224,
-            height = 198,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(6, 0),
-            scale = 0.5
-          }
-        },
-        south =
-        {
-          priority = "extra-high",
-          filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-S-patch-shadow.png",
-          flags = { "shadow" },
-          width = 110,
-          height = 98,
-          frame_count = 1,
-          direction_count = 1,
-          shift = util.by_pixel(5, 0),
-          hr_version =
-          {
-            priority = "extra-high",
-            filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-S-patch-shadow.png",
-            flags = { "shadow" },
-            width = 220,
-            height = 197,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(5, -0.25),
-            scale = 0.5
-          }
-        },
-        west =
-        {
-          priority = "extra-high",
-          filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-W-patch-shadow.png",
-          flags = { "shadow" },
-          width = 110,
-          height = 98,
-          frame_count = 1,
-          direction_count = 1,
-          shift = util.by_pixel(5, 0),
-          hr_version =
-          {
-            priority = "extra-high",
-            filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-W-patch-shadow.png",
-            flags = { "shadow" },
-            width = 220,
-            height = 197,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(5, -0.25),
-            scale = 0.5
-          }
-        }
-      },
-      input_fluid_patch_shadow_animations =
-      {
-        north =
-        {
-          priority = "high",
-          filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-N-drill-received-shadow.png",
-          tint = { r=0.5, g=0.5, b=0.5, a=0.5 },
-          line_length = 8,
-          width = 100,
-          height = 102,
-          frame_count = 64,
-          animation_speed = 0.5,
-          direction_count = 1,
-          shift = util.by_pixel(-1, -3),
-          run_mode = "forward-then-backward",
-          hr_version =
-          {
-            priority = "high",
-            filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-N-drill-received-shadow.png",
-            tint = { r=0.5, g=0.5, b=0.5, a=0.5 },
-            line_length = 8,
-            width = 204,
-            height = 206,
-            frame_count = 64,
-            animation_speed = 0.5,
-            direction_count = 1,
-            shift = util.by_pixel(-0.5, -2),
-            run_mode = "forward-then-backward",
-            scale = 0.5
-          }
-        },
-        east =
-        {
-          priority = "high",
-          filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-E-drill-received-shadow.png",
-          tint = { r=0.5, g=0.5, b=0.5, a=0.5 },
-          line_length = 8,
-          width = 102,
-          height = 98,
-          frame_count = 64,
-          animation_speed = 0.5,
-          direction_count = 1,
-          shift = util.by_pixel(0, -2),
-          run_mode = "forward-then-backward",
-          hr_version =
-          {
-            priority = "high",
-            filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-E-drill-received-shadow.png",
-            tint = { r=0.5, g=0.5, b=0.5, a=0.5 },
-            line_length = 8,
-            width = 204,
-            height = 209,
-            frame_count = 64,
-            animation_speed = 0.5,
-            direction_count = 1,
-            shift = util.by_pixel(-0.5, -1.25),
-            run_mode = "forward-then-backward",
-            scale = 0.5
-          }
-        },
-        south =
-        {
-          priority = "high",
-          filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-S-drill-received-shadow.png",
-          tint = { r=0.5, g=0.5, b=0.5, a=0.5 },
-          line_length = 8,
-          width = 100,
-          height = 98,
-          frame_count = 64,
-          animation_speed = 0.5,
-          direction_count = 1,
-          shift = util.by_pixel(-1, -1),
-          run_mode = "forward-then-backward",
-          hr_version =
-          {
-            priority = "high",
-            filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-S-drill-received-shadow.png",
-            tint = { r=0.5, g=0.5, b=0.5, a=0.5 },
-            line_length = 8,
-            width = 204,
-            height = 204,
-            frame_count = 64,
-            animation_speed = 0.5,
-            direction_count = 1,
-            shift = util.by_pixel(-0.5, -2.5),
-            run_mode = "forward-then-backward",
-            scale = 0.5
-          }
-        },
-        west =
-        {
-          priority = "high",
-          filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-W-drill-received-shadow.png",
-          tint = { r=0.5, g=0.5, b=0.5, a=0.5 },
-          line_length = 8,
-          width = 96,
-          height = 99,
-          frame_count = 64,
-          animation_speed = 0.5,
-          direction_count = 1,
-          shift = util.by_pixel(0, -1.5),
-          run_mode = "forward-then-backward",
-          hr_version =
-          {
-            priority = "high",
-            filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-W-drill-received-shadow.png",
-            tint = { r=0.5, g=0.5, b=0.5, a=0.5 },
-            line_length = 8,
-            width = 198,
-            height = 206,
-            frame_count = 64,
-            animation_speed = 0.5,
-            direction_count = 1,
-            shift = util.by_pixel(1, -2),
-            run_mode = "forward-then-backward",
-            scale = 0.5
-          }
-        }
-      },
-      input_fluid_patch_window_sprites =
-      {
-        north =
-        {
-          priority = "extra-high",
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/slowncheap-electric-mining-drill-N-window-background.png",
-          width = 72,
-          height = 54,
-          frame_count = 1,
-          direction_count = 1,
-          shift = util.by_pixel(-1, 1),
-          hr_version =
-          {
-            priority = "extra-high",
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-slowncheap-electric-mining-drill-N-window-background.png",
-            width = 142,
-            height = 107,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(-1, 0.75),
-            scale = 0.5
-          }
-        },
-        east =
-        {
-          priority = "extra-high",
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/slowncheap-electric-mining-drill-E-window-background.png",
-          width = 51,
-          height = 74,
-          frame_count = 1,
-          direction_count = 1,
-          shift = util.by_pixel(-11.5, -11),
-          hr_version =
-          {
-            priority = "extra-high",
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-slowncheap-electric-mining-drill-E-window-background.png",
-            width = 104,
-            height = 147,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(-11, -11.25),
-            scale = 0.5
-          }
-        },
-        south =
-        {
-          priority = "extra-high",
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/slowncheap-electric-mining-drill-S-window-background.png",
-          width = 71,
-          height = 44,
-          frame_count = 1,
-          direction_count = 1,
-          shift = util.by_pixel(-1.5, -29),
-          hr_version =
-          {
-            priority = "extra-high",
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-slowncheap-electric-mining-drill-S-window-background.png",
-            width = 141,
-            height = 86,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(-1.75, -29),
-            scale = 0.5
-          }
-        },
-        west =
-        {
-          priority = "extra-high",
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/slowncheap-electric-mining-drill-W-window-background.png",
-          width = 41,
-          height = 69,
-          frame_count = 1,
-          direction_count = 1,
-          shift = util.by_pixel(11.5, -11.5),
-          hr_version =
-          {
-            priority = "extra-high",
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-slowncheap-electric-mining-drill-W-window-background.png",
-            width = 80,
-            height = 137,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(11.5, -11.25),
-            scale = 0.5
-          }
-        }
-      },
-  
-      input_fluid_patch_window_flow_sprites =
-      {
-        {
-          north =
-          {
-            priority = "extra-high",
-            filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-N-fluid-flow.png",
-            width = 68,
-            height = 50,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(-2, -1),
+            shift = util.by_pixel(-2, -2),
+            repeat_count = 5,
             hr_version =
             {
-              priority = "extra-high",
-              filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-N-fluid-flow.png",
-              width = 136,
-              height = 99,
-              frame_count = 1,
-              direction_count = 1,
-              shift = util.by_pixel(-2.5, -0.75),
-              scale = 0.5
+                priority = "high",
+                filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-N-integration.png",
+                line_length = 1,
+                width = 216,
+                height = 202,
+                frame_count = 1,
+                animation_speed = electric_drill_animation_speed,
+                direction_count = 1,
+                shift = util.by_pixel(-1, -3),
+                repeat_count = 5,
+                scale = 0.5,
             }
-          },
-          east =
-          {
-            priority = "extra-high",
-            filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-E-fluid-flow.png",
-            width = 41,
-            height = 70,
+            },
+            east =
+            {
+            priority = "high",
+            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-E-integration.png",
+            line_length = 1,
+            width = 116,
+            height = 108,
             frame_count = 1,
+            animation_speed = electric_drill_animation_speed,
             direction_count = 1,
-            shift = util.by_pixel(-11.5, -11),
+            shift = util.by_pixel(4, 2),
+            repeat_count = 5,
             hr_version =
             {
-              priority = "extra-high",
-              filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-E-fluid-flow.png",
-              width = 82,
-              height = 139,
-              frame_count = 1,
-              direction_count = 1,
-              shift = util.by_pixel(-11.5, -11.25),
-              scale = 0.5
+                priority = "high",
+                filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-E-integration.png",
+                line_length = 1,
+                width = 232,
+                height = 214,
+                frame_count = 1,
+                animation_speed = electric_drill_animation_speed,
+                direction_count = 1,
+                shift = util.by_pixel(4, 2),
+                repeat_count = 5,
+                scale = 0.5,
             }
-          },
-          south =
-          {
-            priority = "extra-high",
-            filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-S-fluid-flow.png",
-            width = 68,
-            height = 40,
+            },
+            south =
+            {
+            priority = "high",
+            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-S-integration.png",
+            line_length = 1,
+            width = 108,
+            height = 106,
             frame_count = 1,
+            animation_speed = electric_drill_animation_speed,
             direction_count = 1,
-            shift = util.by_pixel(-2, -29),
+            shift = util.by_pixel(0, 8),
+            repeat_count = 5,
             hr_version =
             {
-              priority = "extra-high",
-              filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-S-fluid-flow.png",
-              width = 136,
-              height = 80,
-              frame_count = 1,
-              direction_count = 1,
-              shift = util.by_pixel(-2.5, -29.5),
-              scale = 0.5
+                priority = "high",
+                filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-S-integration.png",
+                line_length = 1,
+                width = 214,
+                height = 210,
+                frame_count = 1,
+                animation_speed = electric_drill_animation_speed,
+                direction_count = 1,
+                shift = util.by_pixel(0, 8),
+                repeat_count = 5,
+                scale = 0.5,
             }
-          },
-          west =
-          {
-            priority = "extra-high",
-            filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-W-fluid-flow.png",
-            width = 42,
-            height = 70,
+            },
+            west =
+            {
+            priority = "high",
+            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/electric-mining-drill-W-integration.png",
+            line_length = 1,
+            width = 112,
+            height = 106,
             frame_count = 1,
+            animation_speed = electric_drill_animation_speed,
             direction_count = 1,
-            shift = util.by_pixel(11, -11),
+            shift = util.by_pixel(-8, 2),
+            repeat_count = 5,
             hr_version =
             {
-              priority = "extra-high",
-              filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-W-fluid-flow.png",
-              width = 83,
-              height = 140,
-              frame_count = 1,
-              direction_count = 1,
-              shift = util.by_pixel(10.75, -11),
-              scale = 0.5
+                priority = "high",
+                filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-electric-mining-drill/hr-electric-mining-drill-W-integration.png",
+                line_length = 1,
+                width = 218,
+                height = 214,
+                frame_count = 1,
+                animation_speed = electric_drill_animation_speed,
+                direction_count = 1,
+                shift = util.by_pixel(-7, 1),
+                repeat_count = 5,
+                scale = 0.5,
             }
-          }
-        }
-      },
-      input_fluid_patch_window_base_sprites =
-      {
+            }
+        },
+
+        mining_speed = 0.5 / 2,
+        energy_source =
         {
-          north =
-          {
-            priority = "extra-high",
-            filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-N-fluid-background.png",
-            width = 70,
-            height = 48,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(-2, 0),
-            hr_version =
-            {
-              priority = "extra-high",
-              filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-N-fluid-background.png",
-              width = 138,
-              height = 94,
-              frame_count = 1,
-              direction_count = 1,
-              shift = util.by_pixel(-2, 0),
-              scale = 0.5
-            }
-          },
-          east =
-          {
-            priority = "extra-high",
-            filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-E-fluid-background.png",
-            width = 42,
-            height = 70,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(-12, -11),
-            hr_version =
-            {
-              priority = "extra-high",
-              filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-E-fluid-background.png",
-              width = 84,
-              height = 138,
-              frame_count = 1,
-              direction_count = 1,
-              shift = util.by_pixel(-12, -11),
-              scale = 0.5
-            }
-          },
-          south =
-          {
-            priority = "extra-high",
-            filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-S-fluid-background.png",
-            width = 70,
-            height = 40,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(-2, -29),
-            hr_version =
-            {
-              priority = "extra-high",
-              filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-S-fluid-background.png",
-              width = 138,
-              height = 80,
-              frame_count = 1,
-              direction_count = 1,
-              shift = util.by_pixel(-2, -29),
-              scale = 0.5
-            }
-          },
-          west =
-          {
-            priority = "extra-high",
-            filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-W-fluid-background.png",
-            width = 42,
-            height = 69,
-            frame_count = 1,
-            direction_count = 1,
-            shift = util.by_pixel(12, -10.5),
-            hr_version =
-            {
-              priority = "extra-high",
-              filename = "__base__/graphics/entity/electric-mining-drill/hr-electric-mining-drill-W-fluid-background.png",
-              width = 83,
-              height = 137,
-              frame_count = 1,
-              direction_count = 1,
-              shift = util.by_pixel(11.75, -10.75),
-              scale = 0.5
-            }
-          }
-        }
-      },
-  
-      mining_speed = 0.5 / 2,
-      energy_source =
-      {
-        type = "electric",
-        emissions_per_minute = 10 / 2,
-        usage_priority = "secondary-input"
-      },
-      energy_usage = "45kW",--"90kW"
-      resource_searching_radius = 2.49,
-      vector_to_place_result = {0, -1.85},
-      module_specification =
-      {
-        module_slots = 3
-      },
-      radius_visualisation_picture =
-      {
-        filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-radius-visualization.png",
-        width = 10,
-        height = 10
-      },
-      monitor_visualization_tint = {r=78, g=173, b=255},
-      
-      circuit_wire_connection_points = circuit_connector_definitions["electric-mining-drill"].points,
-      circuit_connector_sprites = circuit_connector_definitions["electric-mining-drill"].sprites,
-      circuit_wire_max_distance = default_circuit_wire_max_distance
-    }
-})
+            type = "electric",
+            emissions_per_minute = 10 / 2,
+            usage_priority = "secondary-input"
+        },
+        energy_usage = "45kW",--"90kW",
+        resource_searching_radius = 2.49,
+        vector_to_place_result = {0, -1.85},
+        module_specification =
+        {
+            module_slots = 3
+        },
+        radius_visualisation_picture =
+        {
+            filename = "__base__/graphics/entity/electric-mining-drill/electric-mining-drill-radius-visualization.png",
+            width = 10,
+            height = 10
+        },
+        monitor_visualization_tint = {r=78, g=173, b=255},
+        fast_replaceable_group = "mining-drill",
+
+        circuit_wire_connection_points = circuit_connector_definitions["electric-mining-drill"].points,
+        circuit_connector_sprites = circuit_connector_definitions["electric-mining-drill"].sprites,
+        circuit_wire_max_distance = default_circuit_wire_max_distance
+    }  
+}
+)

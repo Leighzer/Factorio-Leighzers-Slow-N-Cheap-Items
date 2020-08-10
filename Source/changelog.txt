@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.7
+  Changes:
+    - Updated icons to HD versions.
+    - Updated mining drill graphics to HD version.
+    - Added slow n' cheap burner inserter.
+    - Fix slow n' cheap burner mining drill energy required (crafting time for recipe).
+---------------------------------------------------------------------------------------------------
 Version: 0.1.6
   Bugfixes:
     - Fix for 0.18.18 - sounds.car_wood_impact is now a function that takes a volume as a parameter rather than being a table.
