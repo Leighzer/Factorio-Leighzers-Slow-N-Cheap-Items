@@ -1,4 +1,8 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.9
+  Bugfixes:
+    - Set base game dependency to actual version I have tested against (0.18.47).
+---------------------------------------------------------------------------------------------------
 Version: 0.1.8
   Changes:
     - Add optional dependency to miniloader (if update setting is enabled, adjust speed of chute loader to match slow n' cheap transport belt and make recipe require slow n' cheap items).
