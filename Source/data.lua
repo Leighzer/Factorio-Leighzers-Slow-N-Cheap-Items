@@ -5,6 +5,10 @@ end
 if not leighzermods.leighzerslowncheapitems then
     leighzermods.leighzerslowncheapitems = {}
     leighzermods.leighzerslowncheapitems.tints = {}
+    
+    if mods["miniloader"] then
+        leighzermods.leighzerslowncheapitems.updateChuteMiniloader = settings.startup["updateChuteMiniloader"].value    
+    end
 end
 
 if not leighzermods.leighzerslowncheapitems.productivityEnabledRecipes then --list of recipe names that are going to get productivity modules enabled
@@ -17,12 +21,12 @@ end
 require("prototypes.slowncheap-assembling-machine")
 require("prototypes.slowncheap-burner-inserter")
 require("prototypes.slowncheap-burner-mining-drill")
-require("prototypes.slowncheap-transport-belt")
 require("prototypes.slowncheap-chemical-plant")
-require("prototypes.slowncheap-stone-furnace")
 --require("prototypes.cobble-path")
 require("prototypes.slowncheap-electric-mining-drill")
 require("prototypes.slowncheap-inserter")
 require("prototypes.slowncheap-small-electric-pole")
 require("prototypes.slowncheap-splitter")
+require("prototypes.slowncheap-stone-furnace")
+require("prototypes.slowncheap-transport-belt")
 require("prototypes.slowncheap-underground-belt")

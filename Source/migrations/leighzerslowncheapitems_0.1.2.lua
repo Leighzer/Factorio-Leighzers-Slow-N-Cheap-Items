@@ -16,4 +16,7 @@ for _,force in pairs(game.forces) do
         force.recipes["slowncheap-underground-belt"].enabled = force.technologies["logistics"].researched
     end
 
+    if force.recipes["chute-miniloader"] then
+        force.recipes["chute-miniloader"].enabled = force.technologies["logistics"].researched
+    end
 end

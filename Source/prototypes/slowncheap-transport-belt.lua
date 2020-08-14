@@ -1,4 +1,3 @@
-
 require("prototypes.slowncheap-transport-belt-pictures")
 
 local hit_effects = require ("__base__.prototypes.entity.demo-hit-effects")

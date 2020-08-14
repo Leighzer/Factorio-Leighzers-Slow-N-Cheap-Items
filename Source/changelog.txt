@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.8
+  Changes:
+    - Add optional dependency to miniloader (if update setting is enabled, adjust speed of chute loader to match slow n' cheap transport belt and make recipe require slow n' cheap items).
+    - Update electric mining drill gfx again.
+---------------------------------------------------------------------------------------------------
 Version: 0.1.7
   Changes:
     - Updated icons to HD versions.
