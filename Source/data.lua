@@ -5,6 +5,18 @@ end
 if not leighzermods.leighzerslowncheapitems then
     leighzermods.leighzerslowncheapitems = {}
     leighzermods.leighzerslowncheapitems.tints = {}
+
+    leighzermods.leighzerslowncheapitems.slowncheapAssemblingMachineEnabled = settings.startup["slowncheapAssemblingMachineEnabled"].value
+    leighzermods.leighzerslowncheapitems.slowncheapBurnerInserterEnabled = settings.startup["slowncheapBurnerInserterEnabled"].value
+    leighzermods.leighzerslowncheapitems.slowncheapBurnerMiningDrillEnabled = settings.startup["slowncheapBurnerMiningDrillEnabled"].value
+    leighzermods.leighzerslowncheapitems.slowncheapChemicalPlantEnabled = settings.startup["slowncheapChemicalPlantEnabled"].value
+    leighzermods.leighzerslowncheapitems.slowncheapElectricMiningDrillEnabled = settings.startup["slowncheapElectricMiningDrillEnabled"].value
+    leighzermods.leighzerslowncheapitems.slowncheapInserterEnabled = settings.startup["slowncheapInserterEnabled"].value
+    leighzermods.leighzerslowncheapitems.slowncheapSmallElectricPoleEnabled = settings.startup["slowncheapSmallElectricPoleEnabled"].value
+    leighzermods.leighzerslowncheapitems.slowncheapSplitterEnabled = settings.startup["slowncheapSplitterEnabled"].value
+    leighzermods.leighzerslowncheapitems.slowncheapStoneFurnaceEnabled = settings.startup["slowncheapStoneFurnaceEnabled"].value
+    leighzermods.leighzerslowncheapitems.slowncheapTransportBeltEnabled = settings.startup["slowncheapTransportBeltEnabled"].value
+    leighzermods.leighzerslowncheapitems.slowncheapUndergroundBeltEnabled = settings.startup["slowncheapUndergroundBeltEnabled"].value    
 end
 
 if not leighzermods.leighzerslowncheapitems.productivityEnabledRecipes then --list of recipe names that are going to get productivity modules enabled
@@ -17,12 +29,12 @@ end
 require("prototypes.slowncheap-assembling-machine")
 require("prototypes.slowncheap-burner-inserter")
 require("prototypes.slowncheap-burner-mining-drill")
-require("prototypes.slowncheap-transport-belt")
 require("prototypes.slowncheap-chemical-plant")
-require("prototypes.slowncheap-stone-furnace")
 --require("prototypes.cobble-path")
 require("prototypes.slowncheap-electric-mining-drill")
 require("prototypes.slowncheap-inserter")
 require("prototypes.slowncheap-small-electric-pole")
 require("prototypes.slowncheap-splitter")
+require("prototypes.slowncheap-stone-furnace")
+require("prototypes.slowncheap-transport-belt")
 require("prototypes.slowncheap-underground-belt")
