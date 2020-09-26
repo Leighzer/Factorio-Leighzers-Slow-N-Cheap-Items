@@ -35,7 +35,7 @@ data:extend({
       minable = {mining_time = 0.1, result = "slowncheap-transport-belt"},
       max_health = 150,
       corpse = "small-remnants",--"transport-belt-remnants",
-      dying_explosion = "transport-belt-explosion",
+      dying_explosion = "ground-explosion", --"transport-belt-explosion",
       resistances =
       {
         {

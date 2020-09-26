@@ -29,7 +29,7 @@ data:extend({
         minable = {mining_time = 0.1, result = "slowncheap-burner-inserter"},
         max_health = 100,
         corpse = "small-remnants",--"burner-inserter-remnants",
-        dying_explosion = "burner-inserter-explosion",
+        dying_explosion = "ground-explosion", --"burner-inserter-explosion",
         resistances =
         {
           {

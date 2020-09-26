@@ -39,7 +39,7 @@ data:extend({
       minable = {mining_time = 0.1, result = "slowncheap-underground-belt"},
       max_health = 150,
       corpse = "small-remnants",--"underground-belt-remnants",
-      dying_explosion = "underground-belt-explosion",
+      dying_explosion = "ground-explosion", --"underground-belt-explosion",
       max_distance = 5,
       underground_sprite =
       {

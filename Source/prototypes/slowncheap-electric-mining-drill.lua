@@ -435,7 +435,7 @@ data:extend(
         max_health = 300,
         resource_categories = {"basic-solid"},
         corpse = "medium-remnants",--"electric-mining-drill-remnants",
-        dying_explosion = "electric-mining-drill-explosion",
+        dying_explosion = "ground-explosion", --"electric-mining-drill-explosion",
         next_upgrade = "electric-mining-drill",
         collision_box = {{ -1.4, -1.4}, {1.4, 1.4}},
         selection_box = {{ -1.5, -1.5}, {1.5, 1.5}},

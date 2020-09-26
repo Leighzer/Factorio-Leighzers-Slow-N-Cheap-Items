@@ -38,7 +38,7 @@ data:extend({
       minable = {mining_time = 0.1, result = "slowncheap-chemical-plant"},
       max_health = 300,
       corpse = "medium-remnants",--"chemical-plant-remnants",
-      dying_explosion = "chemical-plant-explosion",
+      dying_explosion = "ground-explosion", --"chemical-plant-explosion",
       fast_replaceable_group = "assembling-machine",
       next_upgrade = "chemical-plant",
       collision_box = {{-1.2, -1.2}, {1.2, 1.2}},

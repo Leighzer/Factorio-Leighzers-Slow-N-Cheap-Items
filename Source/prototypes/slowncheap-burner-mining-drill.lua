@@ -31,7 +31,7 @@ data:extend({
         minable = {mining_time = 0.3, result = "slowncheap-burner-mining-drill"},
         max_health = 150,
         corpse = "medium-small-remnants",
-        dying_explosion = "burner-mining-drill-explosion",
+        dying_explosion = "ground-explosion", --"burner-mining-drill-explosion",
         collision_box = {{ -0.7, -0.7}, {0.7, 0.7}},
         selection_box = {{ -1, -1}, {1, 1}},
         damaged_trigger_effect = hit_effects.entity(),

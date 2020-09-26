@@ -36,7 +36,7 @@ data:extend({
     minable = {mining_time = 0.2, result = "slowncheap-assembling-machine"},
     max_health = 300,
     corpse = "medium-remnants",
-    dying_explosion = "assembling-machine-1-explosion",
+    dying_explosion = "ground-explosion", --"assembling-machine-1-explosion",
     resistances =
     {
       {

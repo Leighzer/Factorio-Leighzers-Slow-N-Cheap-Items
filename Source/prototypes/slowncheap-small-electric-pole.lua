@@ -35,7 +35,7 @@ data:extend({
       minable = {mining_time = 0.1, result = "slowncheap-small-electric-pole"},
       max_health = 100,
       corpse = "small-remnants",--"small-electric-pole-remnants",
-      dying_explosion = "small-electric-pole-explosion",
+      dying_explosion = "ground-explosion", --"small-electric-pole-explosion",
       collision_box = {{-0.15, -0.15}, {0.15, 0.15}},
       selection_box = {{-0.4, -0.4}, {0.4, 0.4}},
       damaged_trigger_effect = hit_effects.entity({{-0.2, -2.2}, {0.2, 0.2}}),

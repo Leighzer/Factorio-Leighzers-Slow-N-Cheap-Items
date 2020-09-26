@@ -35,7 +35,7 @@ data:extend({
     minable = {mining_time = 0.1, result = "slowncheap-inserter"},
     max_health = 150,
     corpse = "small-remnants",--"inserter-remnants",
-    dying_explosion = "inserter-explosion",
+    dying_explosion = "ground-explosion", --"inserter-explosion",
     resistances =
     {
       {

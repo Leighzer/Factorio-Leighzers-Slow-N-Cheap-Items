@@ -38,7 +38,7 @@ data:extend({
       minable = {mining_time = 0.1, result = "slowncheap-splitter"},
       max_health = 170,
       corpse = "1x2-remnants",--"splitter-remnants",
-      dying_explosion = "splitter-explosion",
+      dying_explosion = "ground-explosion", --"splitter-explosion",
       resistances =
       {
         {

@@ -30,7 +30,7 @@ data:extend({
     minable = {mining_time = 0.2, result = "slowncheap-stone-furnace"},
     max_health = 200,
     corpse = "medium-small-remnants",--"stone-furnace-remnants",
-    dying_explosion = "stone-furnace-explosion",
+    dying_explosion = "ground-explosion", --"stone-furnace-explosion",
     repair_sound = { filename = "__base__/sound/manual-repair-simple.ogg" },
     mined_sound = { filename = "__base__/sound/deconstruct-bricks.ogg" },
     open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.6 },
