@@ -1,12 +1,12 @@
-local hit_effects = require ("__base__.prototypes.entity.demo-hit-effects")
-local sounds = require("__base__.prototypes.entity.demo-sounds")
+local hit_effects = require ("__base__.prototypes.entity.hit-effects")
+local sounds = require("__base__.prototypes.entity.sounds")
 
 
 data:extend({
     {
         type = "item",
         name = "slowncheap-burner-mining-drill",
-        icon = "__leighzerslowncheapitems__/graphics/icons/slowncheap-burner-mining-drill.png",
+        icon = "__leighzerslowncheapitems__/graphics/icons/burner-mining-drill.png",
         icon_size = 64, icon_mipmaps = 4,
         subgroup = "extraction-machine",
         order = "a",
@@ -21,17 +21,17 @@ data:extend({
         ingredients = {{"iron-ore",2},{"stone", 2}},
         result = "slowncheap-burner-mining-drill"
       },
-    {
+      {
         type = "mining-drill",
         name = "slowncheap-burner-mining-drill",
-        icon = "__base__/graphics/icons/burner-mining-drill.png",
+        icon = "__leighzerslowncheapitems__/graphics/icons/burner-mining-drill.png",
         icon_size = 64, icon_mipmaps = 4,
         flags = {"placeable-neutral", "player-creation"},
         resource_categories = {"basic-solid"},
         minable = {mining_time = 0.3, result = "slowncheap-burner-mining-drill"},
         max_health = 150,
-        corpse = "medium-small-remnants",
-        dying_explosion = "ground-explosion", --"burner-mining-drill-explosion",
+        corpse = "medium-small-remnants", -- "burner-mining-drill-remnants",
+        dying_explosion = "ground-explosion", -- "burner-mining-drill-explosion",
         collision_box = {{ -0.7, -0.7}, {0.7, 0.7}},
         selection_box = {{ -1, -1}, {1, 1}},
         damaged_trigger_effect = hit_effects.entity(),
@@ -42,13 +42,19 @@ data:extend({
           {
             {
               filename = "__base__/sound/burner-mining-drill.ogg",
-              volume = 0.8
+              volume = 0.6
+            },
+            {
+              filename = "__base__/sound/burner-mining-drill-1.ogg",
+              volume = 0.6
             }
           },
           --max_sounds_per_type = 3,
           fade_in_ticks = 4,
-          fade_out_ticks = 30
+          fade_out_ticks = 20
         },
+        open_sound = sounds.machine_open,
+        close_sound = sounds.machine_close,
         vehicle_impact_sound = sounds.generic_impact,
         allowed_effects = {}, -- no beacon effects on the burner drill
         energy_source =
@@ -58,6 +64,7 @@ data:extend({
           effectivity = 1,
           fuel_inventory_size = 1,
           emissions_per_minute = 12 / 2,
+          light_flicker = {color = {0,0,0}},
           smoke =
           {
             {
@@ -67,7 +74,7 @@ data:extend({
             }
           }
         },
-        energy_usage = "75kW",--"150kW",
+        energy_usage = "75kW", --"150kW",
         animations =
         {
           north =
@@ -80,7 +87,7 @@ data:extend({
                 height = 95,
                 line_length = 4,
                 shift = util.by_pixel(2.5, 0.5),
-                filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-burner-mining-drill/slowncheap-burner-mining-drill-N.png",
+                filename = "__leighzerslowncheapitems__/graphics/entity/burner-mining-drill/burner-mining-drill-N.png",
                 frame_count = 32,
                 animation_speed = 0.5,
                 run_mode = "forward-then-backward",
@@ -91,7 +98,7 @@ data:extend({
                   height = 188,
                   line_length = 4,
                   shift = util.by_pixel(2.75, 0.5),
-                  filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-burner-mining-drill/hr-slowncheap-burner-mining-drill-N.png",
+                  filename = "__leighzerslowncheapitems__/graphics/entity/burner-mining-drill/hr-burner-mining-drill-N.png",
                   frame_count = 32,
                   animation_speed = 0.5,
                   run_mode = "forward-then-backward",
@@ -136,7 +143,7 @@ data:extend({
                 height = 84,
                 line_length = 4,
                 shift = util.by_pixel(2.5, 1),
-                filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-burner-mining-drill/slowncheap-burner-mining-drill-E.png",
+                filename = "__leighzerslowncheapitems__/graphics/entity/burner-mining-drill/burner-mining-drill-E.png",
                 frame_count = 32,
                 animation_speed = 0.5,
                 run_mode = "forward-then-backward",
@@ -147,7 +154,7 @@ data:extend({
                   height = 168,
                   line_length = 4,
                   shift = util.by_pixel(2.75, 1),
-                  filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-burner-mining-drill/hr-slowncheap-burner-mining-drill-E.png",
+                  filename = "__leighzerslowncheapitems__/graphics/entity/burner-mining-drill/hr-burner-mining-drill-E.png",
                   frame_count = 32,
                   animation_speed = 0.5,
                   run_mode = "forward-then-backward",
@@ -192,7 +199,7 @@ data:extend({
                 height = 87,
                 line_length = 4,
                 shift = util.by_pixel(0.5, -0.5),
-                filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-burner-mining-drill/slowncheap-burner-mining-drill-S.png",
+                filename = "__leighzerslowncheapitems__/graphics/entity/burner-mining-drill/burner-mining-drill-S.png",
                 frame_count = 32,
                 animation_speed = 0.5,
                 run_mode = "forward-then-backward",
@@ -203,7 +210,7 @@ data:extend({
                   height = 174,
                   line_length = 4,
                   shift = util.by_pixel(0.5, -0.5),
-                  filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-burner-mining-drill/hr-slowncheap-burner-mining-drill-S.png",
+                  filename = "__leighzerslowncheapitems__/graphics/entity/burner-mining-drill/hr-burner-mining-drill-S.png",
                   frame_count = 32,
                   animation_speed = 0.5,
                   run_mode = "forward-then-backward",
@@ -248,7 +255,7 @@ data:extend({
                 height = 88,
                 line_length = 4,
                 shift = util.by_pixel(-1.5, 0),
-                filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-burner-mining-drill/slowncheap-burner-mining-drill-W.png",
+                filename = "__leighzerslowncheapitems__/graphics/entity/burner-mining-drill/burner-mining-drill-W.png",
                 frame_count = 32,
                 animation_speed = 0.5,
                 run_mode = "forward-then-backward",
@@ -259,7 +266,7 @@ data:extend({
                   height = 176,
                   line_length = 4,
                   shift = util.by_pixel(-1.5, 0),
-                  filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-burner-mining-drill/hr-slowncheap-burner-mining-drill-W.png",
+                  filename = "__leighzerslowncheapitems__/graphics/entity/burner-mining-drill/hr-burner-mining-drill-W.png",
                   frame_count = 32,
                   animation_speed = 0.5,
                   run_mode = "forward-then-backward",
@@ -304,5 +311,5 @@ data:extend({
         circuit_wire_connection_points = circuit_connector_definitions["burner-mining-drill"].points,
         circuit_connector_sprites = circuit_connector_definitions["burner-mining-drill"].sprites,
         circuit_wire_max_distance = default_circuit_wire_max_distance
-        }
+    }
 })

@@ -15,15 +15,15 @@ if not leighzermods.leighzerslowncheapitems.productivityEnabledRecipes then --li
     leighzermods.leighzerslowncheapitems.productivityEnabledRecipes = {}
 end
 
---require("prototypes.category")--category for crafting sub menu for now not going to use
-
 --each file introduces item, recipe, and the entity
+require("prototypes.slowncheap-transport-belt-pictures")
 require("prototypes.slowncheap-assembling-machine")
 require("prototypes.slowncheap-burner-inserter")
 require("prototypes.slowncheap-burner-mining-drill")
 require("prototypes.slowncheap-chemical-plant")
 require("prototypes.slowncheap-electric-mining-drill")
 require("prototypes.slowncheap-inserter")
+require("prototypes.slowncheap-loader")
 require("prototypes.slowncheap-small-electric-pole")
 require("prototypes.slowncheap-splitter")
 require("prototypes.slowncheap-stone-furnace")

@@ -1,5 +1,5 @@
-local hit_effects = require ("__base__.prototypes.entity.demo-hit-effects")
-local sounds = require("__base__.prototypes.entity.demo-sounds")
+local hit_effects = require ("__base__.prototypes.entity.hit-effects")
+local sounds = require("__base__.prototypes.entity.sounds")
 
 
 data:extend({
@@ -7,7 +7,7 @@ data:extend({
   {
     type = "item",
     name = "slowncheap-assembling-machine",
-    icon = "__leighzerslowncheapitems__/graphics/icons/slowncheap-assembling-machine.png",
+    icon = "__leighzerslowncheapitems__/graphics/icons/assembling-machine-1.png",
     icon_size = 64, icon_mipmaps = 4,
     subgroup = "production-machine",
     order = "a",
@@ -26,17 +26,17 @@ data:extend({
     },
     result = "slowncheap-assembling-machine"
   },
-      
+
   {
     type = "assembling-machine",
     name = "slowncheap-assembling-machine",
-    icon = "__leighzerslowncheapitems__/graphics/icons/slowncheap-assembling-machine.png",
+    icon = "__leighzerslowncheapitems__/graphics/icons/assembling-machine-1.png",
     icon_size = 64, icon_mipmaps = 4,
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
     minable = {mining_time = 0.2, result = "slowncheap-assembling-machine"},
     max_health = 300,
-    corpse = "medium-remnants",
-    dying_explosion = "ground-explosion", --"assembling-machine-1-explosion",
+    corpse = "medium-remnants", -- "assembling-machine-1-remnants",
+    dying_explosion = "ground-explosion", -- "assembling-machine-1-explosion",
     resistances =
     {
       {
@@ -55,7 +55,7 @@ data:extend({
       layers =
       {
         {
-          filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-assembling-machine/slowncheap-assembling-machine.png",
+          filename = "__leighzerslowncheapitems__/graphics/entity/assembling-machine-1/assembling-machine-1.png",
           priority="high",
           width = 108,
           height = 114,
@@ -64,7 +64,7 @@ data:extend({
           shift = util.by_pixel(0, 2),
           hr_version =
           {
-            filename = "__leighzerslowncheapitems__/graphics/entity/slowncheap-assembling-machine/hr-slowncheap-assembling-machine.png",
+            filename = "__leighzerslowncheapitems__/graphics/entity/assembling-machine-1/hr-assembling-machine-1.png",
             priority="high",
             width = 214,
             height = 226,
@@ -107,11 +107,11 @@ data:extend({
       type = "electric",
       usage_priority = "secondary-input",
       emissions_per_minute = 4 / 2,
-      drain = "1.25kW"
+      --drain = "1.25kW"
     },
-    energy_usage = "37.5kW",--"75kW",
-    open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.6 },
-    close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.6 },
+    energy_usage = "37.5kW", -- "75kW",
+    open_sound = sounds.machine_open,
+    close_sound = sounds.machine_close,
     vehicle_impact_sound = sounds.generic_impact,
     working_sound =
     {
@@ -119,20 +119,14 @@ data:extend({
       {
         {
           filename = "__base__/sound/assembling-machine-t1-1.ogg",
-          volume = 0.8
-        },
-        {
-          filename = "__base__/sound/assembling-machine-t1-2.ogg",
-          volume = 0.8
+          volume = 0.5
         }
       },
-      --idle_sound = { filename = "__base__/sound/idle1.ogg", volume = 0.3 },
-      apparent_volume = 1.5,
-      --max_sounds_per_type = 2,
-      fade_in_ticks = 10,
-      fade_out_ticks = 30
+      audible_distance_modifier = 0.5,
+      fade_in_ticks = 4,
+      fade_out_ticks = 20
     }
-  }
+  },
 })
 
 table.insert(data.raw.technology["automation"].effects,1,{

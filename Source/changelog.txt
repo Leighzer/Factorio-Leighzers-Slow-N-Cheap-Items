@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.0
+  Changes:
+    - Version bump to 1.1.
+    - Update all graphics to be based off of 1.1 graphics.
+    - Change all expected graphics file names to match vanilla equivalent file names (easier to update graphics - take vanilla version, grayscale, overwrite previous and we have our gfx for our slow n' cheap entity).
+    - Reduplicated entity prototypes from vanilla prototypes (mostly to get updated sound tweaks and lighting updates).
+    - Added slow n' cheap loader (hidden by default) for the slow n' cheap belt tier.
+---------------------------------------------------------------------------------------------------
 Version: 0.1.11
   Changes:
     - Update entity explosions to more generic/graphically matching explosions.
