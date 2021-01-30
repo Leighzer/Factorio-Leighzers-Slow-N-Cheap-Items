@@ -58,6 +58,7 @@ data:extend({
     animation_speed_coefficient = 32,
     belt_animation_set = slowncheap_basic_belt_animation_set,
     fast_replaceable_group = "transport-belt",
+    related_underground_belt = "slowncheap-underground-belt",
     next_upgrade = "transport-belt",
     speed = 0.03125 / 2,
     connector_frame_sprites = transport_belt_connector_frame_sprites,
